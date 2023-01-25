@@ -21,6 +21,10 @@ spec:
           matchers:
           - logs_path:
               logs_path: "/var/log/containers/"
+      - decode_json_fields:
+          fields: ["message","log","logs.log","parsed-message"]
+          target: "logs"
+          process_array: true
   daemonSet:
     podTemplate:
       spec:
