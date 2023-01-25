@@ -12,6 +12,8 @@ spec:
     - type: container
       paths:
       - /var/log/containers/*.log
+    output.elasticsearch:
+      pipeline: my-pipeline
   daemonSet:
     podTemplate:
       spec:
