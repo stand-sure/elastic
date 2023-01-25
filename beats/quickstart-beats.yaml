@@ -15,7 +15,7 @@ spec:
     output.elasticsearch:
       pipeline: my-pipeline
     processors:
-      - add_kubernetes_metadata:
+      - add_kubernetes_metadata: {}
   daemonSet:
     podTemplate:
       spec:
