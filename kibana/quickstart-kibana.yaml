@@ -7,3 +7,10 @@ spec:
   count: 1
   elasticsearchRef:
     name: quickstart
+  http:
+    service:
+      spec:
+        type: LoadBalancer
+    tls:
+      selfSignedCertificate:
+        disabled: true
