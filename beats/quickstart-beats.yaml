@@ -12,6 +12,9 @@ spec:
     - type: container
       paths:
       - /var/log/containers/*.log
+      processors:
+        - add_kubernetes_metadata:
+            in_cluster: true
     output.elasticsearch:
       pipeline: my-pipeline
     processors:
