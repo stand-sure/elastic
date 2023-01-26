@@ -1,1 +1,12 @@
-{"index_templates":[{"name":"my-data-stream-template","index_template":{"index_patterns":["my-data-stream*"],"priority":500,"data_stream":{"hidden":false,"allow_custom_routing":false}}}]}
+{
+  "index_templates": [
+    {
+      "name": "my-data-stream-template",
+      "index_template": {
+        "index_patterns": ["my-data-stream*"],
+        "priority": 500,
+        "data_stream": { "hidden": false, "allow_custom_routing": false }
+      }
+    }
+  ]
+}
