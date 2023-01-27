@@ -46,6 +46,7 @@ spec:
   config:
     output.elasticsearch:
       pipeline: my-pipeline
+      bulk_max_size: 10      
     processors:
       - add_kubernetes_metadata:
           in_cluster: true
@@ -85,6 +86,13 @@ spec:
         serviceAccount: elastic-beat-filebeat-quickstart
         serviceAccountName: elastic-beat-filebeat-quickstart
         automountServiceAccountToken: true
+        initContainers:
+        - name: remove-lock
+          image: busybox
+          command: ['sh', '-c', 'rm -f /usr/share/filebeat/data/filebeat.lock']
+          # volumeMounts:
+          # - name: filebeat-data
+          #   mountPath: /usr/share/filebeat/data
         containers:
         - name: filebeat
           securityContext:
@@ -109,6 +117,13 @@ spec:
             mountPath: /var/log/pods
           - name: varlibdockercontainers
             mountPath: /var/lib/docker/containers
+          resources:
+            requests:
+              memory: 1Gi
+              cpu: 0.5
+            limits:
+              memory: 1Gi
+              cpu: 0.5
         volumes:
         - name: varlogcontainers
           hostPath:
