@@ -58,7 +58,12 @@ spec:
           fields: ["message","log","logs.log","parsed-message"]
           target: "logs"
           process_array: true
-      - add_host_metadata: {}
+      - copy_fields:
+          fields:
+            - from: message
+              to: event.original
+          fail_on_error: false
+          ignore_missing: true
     filebeat:
       inputs:
       - type: container
@@ -90,9 +95,6 @@ spec:
         - name: remove-lock
           image: busybox
           command: ['sh', '-c', 'rm -f /usr/share/filebeat/data/filebeat.lock']
-          # volumeMounts:
-          # - name: filebeat-data
-          #   mountPath: /usr/share/filebeat/data
         containers:
         - name: filebeat
           securityContext:
