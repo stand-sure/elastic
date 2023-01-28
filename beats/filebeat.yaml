@@ -37,7 +37,7 @@ rules:
 apiVersion: beat.k8s.elastic.co/v1beta1
 kind: Beat
 metadata:
-  name: quickstart-beats
+  name: filebeat
 spec:
   type: filebeat
   version: 8.6.0
@@ -121,10 +121,10 @@ spec:
             mountPath: /var/lib/docker/containers
           resources:
             requests:
-              memory: 1Gi
+              memory: 300Mi
               cpu: 0.5
             limits:
-              memory: 1Gi
+              memory: 2Gi
               cpu: 0.5
         volumes:
         - name: varlogcontainers
