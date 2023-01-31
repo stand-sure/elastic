@@ -2,10 +2,40 @@ apiVersion: elasticsearch.k8s.elastic.co/v1
 kind: Elasticsearch
 metadata:
   name: quickstart
+  namespace: elastic-system
 spec:
   version: 8.6.0
+#  secureSettings:
+#  - secretName: minio-credentials
   nodeSets:
   - name: default
     count: 1
     config:
       node.store.allow_mmap: false
+      path.repo: ["/usr/share/elasticsearch/data/snapshot"]
+      cluster.routing.allocation.enable: "all"
+    # podTemplate:
+    #   spec:
+    #     volumes:
+    #     - name: snapshot
+    #       persistentVolumeClaim:
+    #         claimName: elasticsearch-snapshots-quickstart-es-default-0-claim
+    #     containers:
+    #     - name: elasticsearch
+    #       volumeMounts:
+    #       - name: snapshot
+    #         mountPath: /usr/share/elasticsearch/snapshot
+    # # podTemplate:
+    #   spec:
+    #     volumes:
+    #     - name: custom-truststore
+    #       secret:
+    #         secretName: additional-certs
+    #     containers:
+    #     - name: elasticsearch
+    #       volumeMounts:
+    #       - name: custom-truststore
+    #         mountPath: /usr/share/elasticsearch/config/custom-truststore
+    #       env:
+    #       - name: ES_JAVA_OPTS
+    #         value: "-Djavax.net.ssl.trustStore=/usr/share/elasticsearch/config/custom-truststore/cacerts.jks -Djavax.net.ssl.trustStorePassword=changeit"
