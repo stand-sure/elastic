@@ -60,9 +60,16 @@ spec:
         - pod
         - container
         - volume
+      - module: prometheus
+        hosts: "prometheus-operated.monitoring:9090"
+        metrics_path: /metrics
+        metricsets:
+        - collector
     processors:
     - add_cloud_metadata: {}
     - add_host_metadata: {}
+    output.elasticsearch: 
+      hosts: ["http://quickstart-es-default.elastic-system.svc.cluster.local:9200"]
   daemonSet:
     podTemplate:
       spec:
